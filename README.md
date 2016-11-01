@@ -25,4 +25,4 @@ This project's goal is to create a Website which dynamicly tracks the status of 
 * Thymeleaf
 * bootstrap
 * MySQL
-* JavaScript, HTML and css
+* JavaScript, HTML and CSS
