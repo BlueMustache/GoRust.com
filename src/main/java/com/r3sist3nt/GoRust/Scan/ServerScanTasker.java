@@ -21,16 +21,16 @@ public class ServerScanTasker{
 
 
 	/**
-	 * Server Scan Task
-	 * Rescan all 5 min
+	 * Server Scan Task	 * Rescan all 5 min
 	 */
 	@Autowired
 	MasterServerUpdate masterUpdate;
+
 	@Scheduled(fixedDelay = 300000)
 	public void scanForNewServer(){
 
 		masterUpdate.update();
-		
+
 	}
 
 	

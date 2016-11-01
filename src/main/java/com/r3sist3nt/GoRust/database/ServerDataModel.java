@@ -52,6 +52,17 @@ public class ServerDataModel {
 	@Column(name = "data_hash", nullable = false)
 	private String data_hash;
 
+	@Column(name = "data_lastScan", nullable = false)
+	private Date data_lastScan;
+
+	public Date getData_lastScan() {
+		return data_lastScan;
+	}
+
+	public void setData_lastScan(Date data_lastScan) {
+		this.data_lastScan = data_lastScan;
+	}
+
 	public Long getId() {
 		return id;
 	}

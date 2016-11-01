@@ -29,6 +29,7 @@ public class MasterServerUpdate {
     private static final Logger log = LoggerFactory.getLogger(ServerScanTasker.class);
 
     public void update(){
+        System.out.println("################# Master Update Started #################");
         Masterserver mServer = new Masterserver();
         LinkedList<Server> sList = mServer.requestServerList();
         System.out.println("Updating Database Records...");
