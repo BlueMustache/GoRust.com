@@ -6,7 +6,9 @@ import com.r3sist3nt.GoRust.ScanLib.ServerPacket;
  * Created by Julian on 01.11.2016.
  */
 public class ServerInfo {
-    private String name,map,folder,game;
+    private String name,map,folder,game,hash,version;
+    private int maxplayer;
+    private boolean modded;
 
     public ServerInfo(byte[] response){
         int last=6;//Ignore first 6 Header byte
@@ -41,6 +43,37 @@ public class ServerInfo {
             //Set last Null Terminator index and increase Index to ignore detection in next loop
             last=index+1;
         }
+        /**
+         * Skipping unimportant bytes
+         * ->Getting Server Tag String
+         */
+        last+=25;
+
+        int index=last;
+        while(response[index]!=0){
+            index++;
+        }
+        byte[] str = new byte[index-last];
+        System.arraycopy(response,last,str,0,index-last);
+        String spl[]=new String(str).split(",");
+        /**
+         * Parsing Tag String
+         */
+        for(int k=0;k<spl.length;k++){
+            if(spl[k].startsWith("modded") || spl[k].startsWith("oxide")){
+                modded=true;
+            }
+            if(spl[k].startsWith("mp")){
+                maxplayer=Integer.parseInt(spl[k].substring(2));
+            }
+            if(spl[k].startsWith("v")){
+                version=spl[k].substring(1);
+            }
+        }
+        hash = spl[spl.length-1];
+
+
+
     }
 
     public String getName() {
@@ -73,5 +106,37 @@ public class ServerInfo {
 
     public void setGame(String game) {
         this.game = game;
+    }
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public int getMaxplayer() {
+        return maxplayer;
+    }
+
+    public void setMaxplayer(int maxplayer) {
+        this.maxplayer = maxplayer;
+    }
+
+    public boolean isModded() {
+        return modded;
+    }
+
+    public void setModded(boolean modded) {
+        this.modded = modded;
     }
 }

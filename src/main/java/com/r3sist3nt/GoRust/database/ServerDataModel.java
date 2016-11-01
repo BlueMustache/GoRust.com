@@ -25,6 +25,9 @@ public class ServerDataModel {
 	@Column(name = "server_name", nullable = true)
 	private String server_name;
 
+	@Column(name = "server_hash", nullable = true)
+	private String server_hash;
+
 	@Column(name = "server_logo", nullable = true)
 	private String server_logo;
 
@@ -42,6 +45,9 @@ public class ServerDataModel {
 
 	@Column(name = "server_maxplayer", nullable = false)
 	private int server_maxplayer;
+
+	@Column(name = "server_seed", nullable = false)
+	private int server_seed;
 
 	@Column(name = "server_mapsize", nullable = false)
 	private int server_mapsize;
@@ -161,5 +167,33 @@ public class ServerDataModel {
 
 	public void setData_hash(int data_hash) {
 		this.data_hash = data_hash;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getServerid() {
+		return serverid;
+	}
+
+	public void setServerid(Long serverid) {
+		this.serverid = serverid;
+	}
+
+	public String getServer_hash() {
+		return server_hash;
+	}
+
+	public void setServer_hash(String server_hash) {
+		this.server_hash = server_hash;
+	}
+
+	public int getServer_seed() {
+		return server_seed;
+	}
+
+	public void setServer_seed(int server_seed) {
+		this.server_seed = server_seed;
 	}
 }

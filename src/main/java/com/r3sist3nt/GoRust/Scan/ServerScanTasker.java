@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ServerScanTasker{
-	
-
-
 
 	@Autowired
 	MasterServerUpdate masterUpdate;
@@ -21,21 +18,21 @@ public class ServerScanTasker{
 	ServerDataUpdate dataUpdate;
 
 	/**
-	 * Server Scan Task	 * Rescan all 5 min
+	 * Server Scan Task
+	 * -> Rescan all 5 min
 	 */
-	@Bean()
-	public ThreadPoolTaskScheduler taskScheduler(){
-		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setPoolSize(2);
-		return  taskScheduler;
-	}
 
-	//@Scheduled(fixedDelay = 300000)
+	@Scheduled(fixedDelay = 300000)
 	public void scanForNewServer(){
 		System.out.println("Start Server scan...");
 		masterUpdate.update();
 
 	}
+
+	/**
+	 * Server Query Task
+	 * -> Query all Server. Pause for 3 min after complete.
+	 */
 
 	@Scheduled(fixedDelay = 180000)
 	public void serverQueryLoop(){
@@ -43,5 +40,15 @@ public class ServerScanTasker{
 		dataUpdate.update();
 	}
 
+	/**
+	 * Setting ThreadPool size to 2
+	 * -> needed to deal with both scan and query tasks at the same time.
+	 */
+	@Bean()
+	public ThreadPoolTaskScheduler taskScheduler(){
+		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
+		taskScheduler.setPoolSize(2);
+		return  taskScheduler;
+	}
 
 }

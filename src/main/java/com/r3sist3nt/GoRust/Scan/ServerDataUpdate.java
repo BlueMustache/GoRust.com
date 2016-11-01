@@ -48,11 +48,41 @@ public class ServerDataUpdate {
             }else{
                 Server server = new Server(sim.getIpaddress(),sim.getPort());
 
+                /**
+                 * Obtaining Server Info and if successful the Rules
+                 * .getServerInfo() and .getRules() return null on packet timeout.
+                 */
                 ServerInfo sInfo = server.getServerInfo();
-               // Rules r = server.getRules();
                 if(sInfo!=null){
-                    System.out.println(sInfo.getName());
+                    Rules r = server.getRules();
+                    if(r!=null){
+                        ServerDataModel sdm = new ServerDataModel();
+                        sdm.setData_lastscan(new Date(System.currentTimeMillis()));
+                        sdm.setServer_build(r.getRule("build"));
+                        sdm.setEntrydate(new Date(System.currentTimeMillis()));
+                        sdm.setServer_descr1(r.getRule("description_00"));
+                        sdm.setServer_descr2(r.getRule("description_01"));
+                        sdm.setServer_descr3(r.getRule("description_02"));
+                        sdm.setServer_descr4(r.getRule("description_03"));
+                        sdm.setServer_logo(r.getRule("headerimage"));
+                        sdm.setServer_name(sInfo.getName());
+                        try{
+                            sdm.setServer_mapsize(Integer.parseInt(r.getRule("world.size")));
+                            sdm.setServer_seed(Integer.parseInt(r.getRule("world.seed")));
+                        }catch(NumberFormatException e){
+
+                        }
+
+                        sdm.setServer_hash(r.getRule("hash"));
+                        sdm.setServerID(sim.getId());
+                        sdm.setServer_maxplayer(sInfo.getMaxplayer());
+                        dataRepo.save(sdm);
+                    }
+
                 }else{
+                    /**
+                     * Mark Server as inactive
+                     */
                     System.out.println("Server Inactive: "+sim.getIpaddress()+":"+sim.getPort());
                     sim.setActive(false);
                     indexRepo.save(sim);

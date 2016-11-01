@@ -14,7 +14,14 @@ import java.nio.ByteOrder;
 import javax.xml.bind.DatatypeConverter;
 
 public class ServerPacket {
-	
+	/**
+	 * Building A2S_INFO Packet.
+	 * Bytes 0-5: Header
+	 * Bytes 6-22: Payload String("Source Engine Query")
+	 * Byte 23: String NULL TERM Byte
+	 *
+	 * @return A2S_INFO Package as byte Array.
+	 */
 	public byte[] A2S_INFO(){
 		byte[] data = new byte[25];
 		data[0] = (byte) 0xFF;
@@ -43,14 +50,7 @@ public class ServerPacket {
 	}
 	
 	public ServerPacket(){
-		//try {
-			//System.out.println(new String(serverRequest("82.211.62.5",28025,A2S_INFO())));
-			//System.out.println();
-			//System.out.println(new String(ruleRequest("82.211.62.5",28025)));
-		//} catch (IOException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-		//}
+
 	}
 	public byte[] ruleRequest(String ip, int port)throws IOException{
 		 byte[] resp1 = new byte[2048];
@@ -58,7 +58,10 @@ public class ServerPacket {
 		 DatagramSocket clientSocket = new DatagramSocket();
 		clientSocket.setSoTimeout(3000);
 	     InetAddress IPAddress = InetAddress.getByName(ip);
-	     
+
+		/**
+		 * Send Challenge request
+		 */
 		 DatagramPacket sendPacket = new DatagramPacket(A2S_RULES() ,A2S_RULES().length, IPAddress, port);
 		 
 		 //Send Package
@@ -69,27 +72,26 @@ public class ServerPacket {
 	    // DatagramPacket receivePacket2 = new DatagramPacket(response, response.length);
 	     
 	     clientSocket.receive(rec1);
-	     
-	     System.out.println("Response Received");
-	     System.out.println("Response: " + bytesToHex(resp1));
-	    
-	     byte[] cRes = {(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0x56,resp1[5],resp1[6],resp1[7],resp1[8]};
+		/**
+		 * Building Challenge Packet:
+		 * Bytes 0-5: Header Bytes
+		 * Bytes 0-4: Challenge Bytes from retrieved packet.
+		 */
+		byte[] cRes = {(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0x56,resp1[5],resp1[6],resp1[7],resp1[8]};
 	     DatagramPacket cPack = new DatagramPacket(cRes ,cRes.length, IPAddress, port);
-	     
-	     System.out.println("cRes: "+bytesToHex(cRes));
+
 	     
 	     if(rec1.getLength()==9){//Challegne package
-	    	 System.out.println("Challenge!");
-	    	
-	    	 
-	    	 
-	    	 clientSocket.send(cPack);
-	    	 System.out.println("Sendet.");
-	    	clientSocket.receive(rec2);
-	    	 System.out.println("Received.");
-	    	 clientSocket.close();
-	    	 
-	    	 byte b[] = new byte[rec2.getLength()];
+			 clientSocket.send(cPack);
+
+			 clientSocket.receive(rec2);
+
+			 clientSocket.close();
+
+			 /**
+			  * Creating byte array with correct size and copy from Buffer
+			  */
+			 byte b[] = new byte[rec2.getLength()];
 	    	 System.arraycopy(resp2, 0, b, 0, rec2.getLength());
 	    	 return b;
 	     }
@@ -114,6 +116,10 @@ public class ServerPacket {
 		
 		return response;
 	}
+
+	/**
+	 * Debug function to convert raw bytes to readable hex
+	 */
 	final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	public static String bytesToHex(byte[] bytes) {
 	    char[] hexChars = new char[bytes.length * 3];
