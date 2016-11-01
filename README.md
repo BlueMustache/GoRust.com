@@ -16,7 +16,7 @@ This project's goal is to create a Website which dynamicly tracks the status of 
     * Max Player
     * Server Name
     
-* The Data will be represented in a Website, showing events, like:
+* The Data will be represented in a Website, showing events, like
   * Server Name Changes
   * Large changes in Player population
   * Mapchanges(seed or sizes)
