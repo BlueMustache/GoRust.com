@@ -14,7 +14,6 @@ import java.nio.ByteOrder;
 import javax.xml.bind.DatatypeConverter;
 
 public class ServerPacket {
-	//public final byte[] A2S_INFO = {(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0xFF,(byte)0x54};
 	
 	public byte[] A2S_INFO(){
 		byte[] data = new byte[25];
@@ -57,6 +56,7 @@ public class ServerPacket {
 		 byte[] resp1 = new byte[2048];
 		 byte[] resp2 = new byte[2048];
 		 DatagramSocket clientSocket = new DatagramSocket();
+		clientSocket.setSoTimeout(3000);
 	     InetAddress IPAddress = InetAddress.getByName(ip);
 	     
 		 DatagramPacket sendPacket = new DatagramPacket(A2S_RULES() ,A2S_RULES().length, IPAddress, port);
@@ -100,6 +100,7 @@ public class ServerPacket {
 	public byte[] serverRequest(String ip, int port, byte[] REQUEST_TYPE) throws IOException{
 		 byte[] response = new byte[2048];
 		 DatagramSocket clientSocket = new DatagramSocket();
+		 clientSocket.setSoTimeout(3000);
 	     InetAddress IPAddress = InetAddress.getByName(ip);
 	     
 		 DatagramPacket sendPacket = new DatagramPacket(REQUEST_TYPE ,REQUEST_TYPE.length, IPAddress, port);

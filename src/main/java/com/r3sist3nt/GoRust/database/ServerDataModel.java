@@ -17,10 +17,10 @@ public class ServerDataModel {
 	private Long id;
 
 	@Column(name = "serverid", nullable = false)
-	private Long serverID;
+	private Long serverid;
 
-	@Column(name = "entry_date", nullable = false)
-	private Date entry_date;
+	@Column(name = "entrydate", nullable = false)
+	private Date entrydate;
 
 	@Column(name = "server_name", nullable = true)
 	private String server_name;
@@ -50,17 +50,17 @@ public class ServerDataModel {
 	private String server_build;
 
 	@Column(name = "data_hash", nullable = false)
-	private String data_hash;
+	private int data_hash;
 
-	@Column(name = "data_lastScan", nullable = false)
-	private Date data_lastScan;
+	@Column(name = "data_lastscan", nullable = false)
+	private Date data_lastscan;
 
-	public Date getData_lastScan() {
-		return data_lastScan;
+	public Date getData_lastscan() {
+		return data_lastscan;
 	}
 
-	public void setData_lastScan(Date data_lastScan) {
-		this.data_lastScan = data_lastScan;
+	public void setData_lastscan(Date data_lastscan) {
+		this.data_lastscan = data_lastscan;
 	}
 
 	public Long getId() {
@@ -68,19 +68,19 @@ public class ServerDataModel {
 	}
 
 	public Long getServerID() {
-		return serverID;
+		return serverid;
 	}
 
 	public void setServerID(Long serverID) {
-		this.serverID = serverID;
+		this.serverid = serverID;
 	}
 
-	public Date getEntry_date() {
-		return entry_date;
+	public Date getEntrydate() {
+		return entrydate;
 	}
 
-	public void setEntry_date(Date entry_date) {
-		this.entry_date = entry_date;
+	public void setEntrydate(Date entrydate) {
+		this.entrydate = entrydate;
 	}
 
 	public String getServer_name() {
@@ -155,11 +155,11 @@ public class ServerDataModel {
 		this.server_build = server_build;
 	}
 
-	public String getData_hash() {
+	public int getData_hash() {
 		return data_hash;
 	}
 
-	public void setData_hash(String data_hash) {
+	public void setData_hash(int data_hash) {
 		this.data_hash = data_hash;
 	}
 }
