@@ -20,3 +20,9 @@ This project's goal is to create a Website which dynamicly tracks the status of 
   * Mapchanges(seed or sizes)
   
 ## Technology's used in the Project
+* Java
+* The Spring Project
+* Thymeleaf
+* bootstrap
+* MySQL
+* JavaScript, HTML and css
