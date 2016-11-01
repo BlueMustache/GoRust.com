@@ -5,6 +5,7 @@ This project's goal is to create a Website which dynamicly tracks the status of 
 * The app sends in frequent intervalls requests to the Steam Masterserver
   * The Server list then will be pushed in a database
   * New Servers will be added and old, outdated records updated.
+  
 * The system then sends Source Query Requests to all found servers and grabs the following data
   * Current Users
   * Entities in the World
@@ -14,6 +15,7 @@ This project's goal is to create a Website which dynamicly tracks the status of 
     * Map Size
     * Max Player
     * Server Name
+    
 * The Data will be represented in a Website, showing events, like:
   * Server Name Changes
   * Large changes in Player population
