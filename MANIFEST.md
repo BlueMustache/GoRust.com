@@ -53,3 +53,26 @@
     <th>Last time this server was scanned</th>
   </tr>
 </table>
+
+### server_frags
+Table for quick changeable data like current player and entitys.
+<table>
+  <tr>
+    <th>id</th>
+    <th>serverid</th> 
+    <th>player_online</th>
+    <th>fps</th>
+    <th>entcount</th>
+    <th>uptime</th>
+    <th>time</th>
+  </tr>
+  <tr>
+    <td>unique frag id</td>
+    <td>Server ID(same as in server_index)</td> 
+    <td>Current Player on the Server</td>
+    <td>Current server fps</td>
+    <td>Total number of entitys.</td>
+    <th>Server Uptime in seconds</th>
+    <th>timestamp</th>
+  </tr>
+</table>
