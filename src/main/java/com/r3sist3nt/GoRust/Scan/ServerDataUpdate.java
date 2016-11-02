@@ -127,7 +127,8 @@ public class ServerDataUpdate {
      */
     public synchronized ServerIndexModel getNextQueuedServer(){
         if(serverListIndex<serverList.size()){
-            return serverList.get(serverListIndex++);
+            serverListIndex++;
+            return serverList.get(serverListIndex-1);
         }
         return null;
     }
