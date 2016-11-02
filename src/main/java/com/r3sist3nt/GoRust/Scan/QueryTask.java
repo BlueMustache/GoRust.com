@@ -27,13 +27,15 @@ public class QueryTask extends Thread {
 
     private ServerDataRepository dataRepo;
     private ServerIndexRepository indexRepo;
+    private ServerChangeEvent sce;
 
     private ServerDataUpdate sdu;
 
-    public QueryTask(ServerDataUpdate sdu, ServerDataRepository dataRepo, ServerIndexRepository indexRepo) {
+    public QueryTask(ServerDataUpdate sdu, ServerDataRepository dataRepo, ServerIndexRepository indexRepo,ServerChangeEvent sce) {
         this.sdu = sdu;
         this.dataRepo = dataRepo;
         this.indexRepo = indexRepo;
+        this.sce=sce;
     }
 
     private static final Logger log = LoggerFactory.getLogger(QueryTask.class);
@@ -68,6 +70,10 @@ public class QueryTask extends Thread {
                             sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                             sdm.setEntrydate(new Timestamp(System.currentTimeMillis()));
                             sdu.detectedChange();
+                            /**
+                             * Call the difference checker.
+                             */
+                            sce.newEvent(db,sdm);
                             dataRepo.save(sdm);
                         }
 

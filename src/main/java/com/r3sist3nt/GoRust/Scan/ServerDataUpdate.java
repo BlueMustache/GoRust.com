@@ -34,6 +34,8 @@ public class ServerDataUpdate {
     ServerIndexRepository indexRepo;
     @Autowired
     ServerDataRepository dataRepo;
+    @Autowired
+    ServerChangeEvent sce;
 
     private static final Logger log = LoggerFactory.getLogger(ServerDataUpdate.class);
     /**
@@ -50,6 +52,7 @@ public class ServerDataUpdate {
         serverListIndex=0;
         changed=0;
         inactive=0;
+        scanned=0;
 
         log.info("[ServerDataUpdate] Starting Server Query... [THREAD_POOL_SIZE]="+THREAD_POOL_SIZE);
         log.info("[ServerDataUpdate] Found "+serverList.size()+" active servers.");
@@ -59,7 +62,7 @@ public class ServerDataUpdate {
          * Creating Thread Pool with size of THREAD_POOL_SIZE which scan the servers.
          */
         for(int k=0;k<pool.length;k++){
-            pool[k] = new QueryTask(this,dataRepo,indexRepo);
+            pool[k] = new QueryTask(this,dataRepo,indexRepo,sce);
             pool[k].start();
         }
 
@@ -113,7 +116,7 @@ public class ServerDataUpdate {
                  * On success fill Object with query info.
                  */
                 sdm = new ServerDataModel();
-                sdm.setServer_build(r.getRule("build"));
+                sdm.setServer_build(sInfo.getVersion());
                 sdm.setServer_descr1(r.getRule("description_00"));
                 sdm.setServer_descr2(r.getRule("description_01"));
                 sdm.setServer_descr3(r.getRule("description_02"));
@@ -152,7 +155,7 @@ public class ServerDataUpdate {
         return null;
     }
     public int generateQueryHash(ServerDataModel sdm){
-        String s=sdm.getServer_build()+sdm.getServer_descr1()+sdm.getServer_logo()+sdm.getServer_name()+sdm.getServer_mapsize()+sdm.getServer_maxplayer()+sdm.getServer_seed();
+        String s=sdm.getServer_build()+sdm.getServer_name()+sdm.getServer_mapsize()+sdm.getServer_maxplayer()+sdm.getServer_seed();
         return s.hashCode();
     }
 }
