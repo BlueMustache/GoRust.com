@@ -7,6 +7,7 @@ import com.r3sist3nt.GoRust.database.ServerIndexModel;
 import com.r3sist3nt.GoRust.database.ServerIndexRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,10 +30,9 @@ public class MasterServerUpdate {
     private static final Logger log = LoggerFactory.getLogger(ServerScanTasker.class);
 
     public void update(){
-        System.out.println("################# Master Update Started #################");
+        log.info("Updating Database from Masterserver...");
         Masterserver mServer = new Masterserver();
         LinkedList<Server> sList = mServer.requestServerList();
-        System.out.println("Updating Database Records...");
         int updates=0;
         int skipped=0;
 

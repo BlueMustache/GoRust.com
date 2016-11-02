@@ -1,6 +1,7 @@
 package com.r3sist3nt.GoRust.database;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,7 @@ public class ServerDataModel {
 	private Long serverid;
 
 	@Column(name = "entrydate", nullable = false)
-	private Date entrydate;
+	private Timestamp entrydate;
 
 	@Column(name = "server_name", nullable = true)
 	private String server_name;
@@ -59,13 +60,13 @@ public class ServerDataModel {
 	private int data_hash;
 
 	@Column(name = "data_lastscan", nullable = false)
-	private Date data_lastscan;
+	private Timestamp data_lastscan;
 
-	public Date getData_lastscan() {
+	public Timestamp getData_lastscan() {
 		return data_lastscan;
 	}
 
-	public void setData_lastscan(Date data_lastscan) {
+	public void setData_lastscan(Timestamp data_lastscan) {
 		this.data_lastscan = data_lastscan;
 	}
 
@@ -81,11 +82,11 @@ public class ServerDataModel {
 		this.serverid = serverID;
 	}
 
-	public Date getEntrydate() {
+	public Timestamp getEntrydate() {
 		return entrydate;
 	}
 
-	public void setEntrydate(Date entrydate) {
+	public void setEntrydate(Timestamp entrydate) {
 		this.entrydate = entrydate;
 	}
 
