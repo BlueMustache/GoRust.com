@@ -19,10 +19,10 @@ public class ServerScanTasker{
 
 	/**
 	 * Server Scan Task
-	 * -> Rescan all 5 min
+	 * -> Rescan all 10 min
 	 */
 
-	@Scheduled(fixedDelay = 300000)
+	@Scheduled(fixedDelay = 600000)
 	public void scanForNewServer(){
 		System.out.println("Start Server scan...");
 		masterUpdate.update();
@@ -31,11 +31,11 @@ public class ServerScanTasker{
 
 	/**
 	 * Server Query Task
-	 * -> Query all Server. Pause for 3 min after complete.
+	 * -> Query all Server. Pause for 5 min after complete.
 	 */
 
-	@Scheduled(fixedDelay = 180000)
-	public void serverQueryLoop(){
+	@Scheduled(fixedDelay = 300000)
+	public void serverQuery(){
 		System.out.println("Start Data scan...");
 		dataUpdate.update();
 	}

@@ -71,7 +71,7 @@ public class ServerDataUpdate {
             }
 
         }
-        log.info("[ServerDataUpdate] Finished Server query. Scanned:"+scanned + " Detected Changes:"+changed+ " offline:"+inactive);
+        log.info("[ServerDataUpdate] Finished Server query. Scanned: "+scanned + " Detected Changes: "+changed+ " offline: "+inactive);
         log.info("[ServerDataUpdate] Waiting for next Scan task...");
     }
 
