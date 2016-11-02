@@ -28,7 +28,7 @@
     <th>entrydate</th>
     <th>server_name</th>
     <th><server_logo/th>
-    <th>server_descr<num></th>
+    <th>server_descr[num]</th>
     <th>server_maxplayer</th>
     <th>server_mapsize</th>
     <th>server_build</th>
