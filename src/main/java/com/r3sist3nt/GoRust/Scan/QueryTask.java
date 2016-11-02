@@ -8,6 +8,7 @@ import org.hibernate.exception.DataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
@@ -79,8 +80,10 @@ public class QueryTask extends Thread {
                 /**
                  * Get next Server entry.
                  */
-            } catch (DataException de) {
-                log.error("DataException: "+ de.getMessage());
+            } catch (DataException e) {
+                log.error("DataException: "+ e.getMessage());
+            } catch(DataIntegrityViolationException e){
+                log.error("DataIntegrityViolationException: "+ e.getMessage());
             }
             sim = sdu.getNextQueuedServer();
         }
