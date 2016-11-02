@@ -36,7 +36,6 @@ public class QueryTask extends Thread {
     public void run() {
         ServerIndexModel sim = sdu.getNextQueuedServer();
         while (sim != null) {
-            log.info("SIM:"+sim.getId());
             List<ServerDataModel> dataList = dataRepo.findByServeridOrderByEntrydateDesc(sim.getId(), new PageRequest(0, 1));
 
             ServerDataModel sdm = sdu.buildNewServerDataModel(sim);
