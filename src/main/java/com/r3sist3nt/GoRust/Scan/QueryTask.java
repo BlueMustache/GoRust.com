@@ -4,6 +4,7 @@ import com.r3sist3nt.GoRust.database.ServerDataModel;
 import com.r3sist3nt.GoRust.database.ServerDataRepository;
 import com.r3sist3nt.GoRust.database.ServerIndexModel;
 import com.r3sist3nt.GoRust.database.ServerIndexRepository;
+import org.hibernate.exception.DataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,51 +28,60 @@ public class QueryTask extends Thread {
     private ServerIndexRepository indexRepo;
 
     private ServerDataUpdate sdu;
-    public QueryTask(ServerDataUpdate sdu, ServerDataRepository dataRepo,ServerIndexRepository indexRepo){
-        this.sdu=sdu;
-        this.dataRepo=dataRepo;
-        this.indexRepo=indexRepo;
+
+    public QueryTask(ServerDataUpdate sdu, ServerDataRepository dataRepo, ServerIndexRepository indexRepo) {
+        this.sdu = sdu;
+        this.dataRepo = dataRepo;
+        this.indexRepo = indexRepo;
     }
+
     private static final Logger log = LoggerFactory.getLogger(QueryTask.class);
+
     public void run() {
         ServerIndexModel sim = sdu.getNextQueuedServer();
         while (sim != null) {
-            List<ServerDataModel> dataList = dataRepo.findByServeridOrderByEntrydateDesc(sim.getId(), new PageRequest(0, 1));
+            try {
 
-            ServerDataModel sdm = sdu.buildNewServerDataModel(sim);
-            if (sdm != null) {
-                /**
-                 * Check for existing entry and validate data hash.
-                 * When existing record is found:
-                 *      -> Check if something changed.
-                 *          -> Changed: Add new record.
-                 *          -> Unchanged: Update last record with new timestamp
-                 * When no record is found
-                 *      -> Add record with query data
-                 */
-                if (dataList.size() > 0) {
-                    ServerDataModel db = dataList.get(0);
-                    if (db.getData_hash() == sdm.getData_hash()) {
-                        db.setData_lastscan(new Timestamp(System.currentTimeMillis()));
-                        dataRepo.save(db);
+
+                List<ServerDataModel> dataList = dataRepo.findByServeridOrderByEntrydateDesc(sim.getId(), new PageRequest(0, 1));
+
+                ServerDataModel sdm = sdu.buildNewServerDataModel(sim);
+                if (sdm != null) {
+                    /**
+                     * Check for existing entry and validate data hash.
+                     * When existing record is found:
+                     *      -> Check if something changed.
+                     *          -> Changed: Add new record.
+                     *          -> Unchanged: Update last record with new timestamp
+                     * When no record is found
+                     *      -> Add record with query data
+                     */
+                    if (dataList.size() > 0) {
+                        ServerDataModel db = dataList.get(0);
+                        if (db.getData_hash() == sdm.getData_hash()) {
+                            db.setData_lastscan(new Timestamp(System.currentTimeMillis()));
+                            dataRepo.save(db);
+                        } else {
+                            sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
+                            sdm.setEntrydate(new Timestamp(System.currentTimeMillis()));
+                            dataRepo.save(sdm);
+                        }
+
                     } else {
-                        sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                         sdm.setEntrydate(new Timestamp(System.currentTimeMillis()));
+                        sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                         dataRepo.save(sdm);
                     }
-
                 } else {
-                    sdm.setEntrydate(new Timestamp(System.currentTimeMillis()));
-                    sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
-                    dataRepo.save(sdm);
+                    sim.setActive(false);
+                    indexRepo.save(sim);
                 }
-            } else {
-                sim.setActive(false);
-                indexRepo.save(sim);
+                /**
+                 * Get next Server entry.
+                 */
+            } catch (DataException de) {
+                log.error("DataException: "+ de.getMessage());
             }
-            /**
-             * Get next Server entry.
-             */
             sim = sdu.getNextQueuedServer();
         }
     }
