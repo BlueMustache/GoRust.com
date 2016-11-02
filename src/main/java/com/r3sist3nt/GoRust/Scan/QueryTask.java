@@ -46,7 +46,7 @@ public class QueryTask extends Thread {
             try {
 
 
-                List<ServerDataModel> dataList = dataRepo.findByServeridOrderByEntrydateDesc(sim.getId(), new PageRequest(0, 1));
+                List<ServerDataModel> dataList = dataRepo.findByServeridOrderByEntrydateDesc(sim.getId());
 
                 ServerDataModel sdm = sdu.buildNewServerDataModel(sim);
                 if (sdm != null) {

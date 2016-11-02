@@ -11,7 +11,7 @@ public interface ServerDataRepository extends CrudRepository<ServerDataModel,Lon
 	
     List<ServerDataModel> findAll();
 
-    List<ServerDataModel> findByServeridOrderByEntrydateDesc(long serverID, Pageable pageable);
+    List<ServerDataModel> findByServeridOrderByEntrydateDesc(long serverID);
 
 
 
