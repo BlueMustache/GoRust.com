@@ -42,15 +42,15 @@
     <td>Server ID(same as in server_index)</td> 
     <td>Timestamp when the entry was created</td>
     <td>Server Name</td>
-    <th>URL to server logo</th>
-    <th>Server Description(multiple entrys)</th>
-    <th>Slots</th>
-    <th>Mapsize</th>
-    <th>Server Version</th>
-    <th>Server Hash(from server query)</th>
-    <th>Server Map Seed</th>
-    <th>Hash of all columns to fast check for changes</th>
-    <th>Last time this server was scanned</th>
+    <td>URL to server logo</td>
+    <td>Server Description(multiple entrys)</td>
+    <td>Slots</td>
+    <td>Mapsize</td>
+    <td>Server Version</td>
+    <td>Server Hash(from server query)</td>
+    <td>Server Map Seed</td>
+    <td>Hash of all columns to fast check for changes</td>
+    <td>Last time this server was scanned</td>
   </tr>
 </table>
 
@@ -72,7 +72,7 @@ Table for quick changeable data like current player and entitys.
     <td>Current Player on the Server</td>
     <td>Current server fps</td>
     <td>Total number of entitys.</td>
-    <th>Server Uptime in seconds</th>
-    <th>timestamp</th>
+    <td>Server Uptime in seconds</td>
+    <td>timestamp</td>
   </tr>
 </table>
