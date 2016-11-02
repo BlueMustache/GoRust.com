@@ -22,7 +22,7 @@ import java.util.List;
 @Component
 public class ServerDataUpdate {
 
-    public static final int  THREAD_POOL_SIZE=16;
+    public static final int  THREAD_POOL_SIZE=64;
 
 
     private int serverListIndex=0;
@@ -127,8 +127,9 @@ public class ServerDataUpdate {
      */
     public synchronized ServerIndexModel getNextQueuedServer(){
         if(serverListIndex<serverList.size()){
+            ServerIndexModel sim = serverList.get(serverListIndex);
             serverListIndex++;
-            return serverList.get(serverListIndex-1);
+            return sim;
         }
         return null;
     }
