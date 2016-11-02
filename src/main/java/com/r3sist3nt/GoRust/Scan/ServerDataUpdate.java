@@ -24,7 +24,9 @@ public class ServerDataUpdate {
 
     public static final int  THREAD_POOL_SIZE=64;
 
-
+    private int changed=0;
+    private int scanned=0;
+    private int inactive=0;
     private int serverListIndex=0;
     private List<ServerIndexModel> serverList;
 
@@ -46,6 +48,8 @@ public class ServerDataUpdate {
     public void update(){
         serverList = indexRepo.findByActive(true);
         serverListIndex=0;
+        changed=0;
+        inactive=0;
 
         log.info("[ServerDataUpdate] Starting Server Query... [THREAD_POOL_SIZE]="+THREAD_POOL_SIZE);
         log.info("[ServerDataUpdate] Found "+serverList.size()+" active servers.");
@@ -67,8 +71,22 @@ public class ServerDataUpdate {
             }
 
         }
-        log.info("[ServerDataUpdate] Finished Server query.");
+        log.info("[ServerDataUpdate] Finished Server query. Scanned:"+scanned + " Detected Changes:"+changed+ " offline:"+inactive);
+        log.info("[ServerDataUpdate] Waiting for next Scan task...");
+    }
 
+    /**
+     * Stats reporting from Threads
+     */
+
+    public synchronized void detectedChange(){
+        this.changed++;
+    }
+    public synchronized void detectedOffline(){
+        this.inactive++;
+    }
+    public synchronized void scanned(){
+        this.scanned++;
     }
 
     /**

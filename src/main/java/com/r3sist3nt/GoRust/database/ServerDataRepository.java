@@ -14,7 +14,6 @@ public interface ServerDataRepository extends CrudRepository<ServerDataModel,Lon
 	
     List<ServerDataModel> findAll();
 
-    //List<ServerDataModel> lessThenOrEqualToData_lastScan(Date d);
     List<ServerDataModel> findByServeridOrderByEntrydateDesc(long serverID, Pageable pageable);
 
 

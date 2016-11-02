@@ -61,6 +61,6 @@ public class MasterServerUpdate {
             System.out.print("Server: "+updates +" Updated: "+skipped);
         }
         System.out.println();
-        System.out.println("Update Finished! Updated "+updates+" records. Leaving "+skipped+" existing records untouched.");
+        log.info("Update Finished! Updated "+updates+" records. Leaving "+skipped+" existing records untouched.");
     }
 }

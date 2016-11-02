@@ -57,6 +57,8 @@ public class QueryTask extends Thread {
                      * When no record is found
                      *      -> Add record with query data
                      */
+                    sdu.scanned();
+
                     if (dataList.size() > 0) {
                         ServerDataModel db = dataList.get(0);
                         if (db.getData_hash() == sdm.getData_hash()) {
@@ -65,6 +67,7 @@ public class QueryTask extends Thread {
                         } else {
                             sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                             sdm.setEntrydate(new Timestamp(System.currentTimeMillis()));
+                            sdu.detectedChange();
                             dataRepo.save(sdm);
                         }
 
@@ -75,16 +78,18 @@ public class QueryTask extends Thread {
                     }
                 } else {
                     sim.setActive(false);
+                    sdu.detectedOffline();
                     indexRepo.save(sim);
                 }
-                /**
-                 * Get next Server entry.
-                 */
+
             } catch (DataException e) {
-                log.error("DataException: "+ e.getMessage());
-            } catch(DataIntegrityViolationException e){
-                log.error("DataIntegrityViolationException: "+ e.getMessage());
+                log.error("DataException: " + e.getMessage());
+            } catch (DataIntegrityViolationException e) {
+                log.error("DataIntegrityViolationException: " + e.getMessage());
             }
+            /**
+             * Get next Server entry.
+             */
             sim = sdu.getNextQueuedServer();
         }
     }
