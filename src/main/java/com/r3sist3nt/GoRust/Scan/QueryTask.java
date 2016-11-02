@@ -4,6 +4,8 @@ import com.r3sist3nt.GoRust.database.ServerDataModel;
 import com.r3sist3nt.GoRust.database.ServerDataRepository;
 import com.r3sist3nt.GoRust.database.ServerIndexModel;
 import com.r3sist3nt.GoRust.database.ServerIndexRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
@@ -30,7 +32,7 @@ public class QueryTask extends Thread {
         this.dataRepo=dataRepo;
         this.indexRepo=indexRepo;
     }
-
+    private static final Logger log = LoggerFactory.getLogger(QueryTask.class);
     public void run() {
         ServerIndexModel sim = sdu.getNextQueuedServer();
         while (sim != null) {
@@ -53,6 +55,7 @@ public class QueryTask extends Thread {
                     if (db.getData_hash() == sdm.getData_hash()) {
                         db.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                         dataRepo.save(db);
+                        log.info("Updated:"+db.getServer_name());
                     } else {
                         sdm.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                         sdm.setEntrydate(new Timestamp(System.currentTimeMillis()));
