@@ -82,7 +82,7 @@ public class Masterserver {
 		DatagramPacket receivePacket = new DatagramPacket(response, response.length);
 
 		DatagramPacket sendPacket = new DatagramPacket(MASTER_REQUEST(seedIP, filter),
-				MASTER_REQUEST(seedIP, filter).length, IPAddress, 27011);
+				MASTER_REQUEST(seedIP, filter).length, IPAddress, 27015);
 
 		// Send Package
 		clientSocket.send(sendPacket);
