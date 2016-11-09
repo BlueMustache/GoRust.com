@@ -20,7 +20,8 @@ public class Masterserver {
 		LinkedList<Server> sList = new LinkedList<Server>();
 		try {
 			DatagramSocket clientSocket = new DatagramSocket();
-			InetAddress IPAddress = InetAddress.getByName("hl1master.steampowered.com");
+			//DNS Entry from hl2master.steampowered.com
+			InetAddress IPAddress = InetAddress.getByName("208.64.200.39");
 			
 			clientSocket.setSoTimeout(3000);
 			
