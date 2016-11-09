@@ -84,7 +84,7 @@ public class Masterserver {
 
 		// Send Package
 		clientSocket.send(sendPacket);
-		System.out.println("Sended1.");
+
 
 		
 		clientSocket.receive(receivePacket);
