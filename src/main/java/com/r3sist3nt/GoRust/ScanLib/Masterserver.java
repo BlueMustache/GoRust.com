@@ -20,9 +20,9 @@ public class Masterserver {
 		LinkedList<Server> sList = new LinkedList<Server>();
 		try {
 			DatagramSocket clientSocket = new DatagramSocket();
-			InetAddress IPAddress = InetAddress.getByName("hl2master.steampowered.com");
+			InetAddress IPAddress = InetAddress.getByName("hl1master.steampowered.com");
 			
-			clientSocket.setSoTimeout(2000);
+			clientSocket.setSoTimeout(3000);
 			
 
 			//String lastIP = "66.55.154.239:28017";
@@ -72,8 +72,9 @@ public class Masterserver {
 		//System.out.println(ServerPacket.bytesToHex(b));
 		return b;
 	}
-	private String filter = "\\appid\\252490\\empty\\1";
-//	private String filter = "\\appid\\252490";
+	//private String filter = "\\appid\\252490\\empty\\1";
+	private String filter = "\\appid\\252490";
+	//private String filter = "";
 	private LinkedList<Server> getServerList(String seedIP, DatagramSocket clientSocket,InetAddress IPAddress) throws IOException {
 		LinkedList<Server> sList = new LinkedList<Server>();
 		byte[] response = new byte[2048];
