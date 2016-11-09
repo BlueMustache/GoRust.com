@@ -84,9 +84,11 @@ public class Masterserver {
 
 		// Send Package
 		clientSocket.send(sendPacket);
+		System.out.println("Sended1.");
 
 		
 		clientSocket.receive(receivePacket);
+		System.out.println("Rec1.");
 
 		// System.out.println(Scan.bytesToHex(response));
 		String lastIP = "";
