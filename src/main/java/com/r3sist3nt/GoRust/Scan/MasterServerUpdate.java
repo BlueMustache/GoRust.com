@@ -31,11 +31,12 @@ public class MasterServerUpdate {
     private static final Logger log = LoggerFactory.getLogger(ServerScanTasker.class);
 
     public void update(){
-        log.info("Updating Database from Masterserver...");
+        log.info("[MasterServerUpdate]Updating Database from Masterserver...");
         Masterserver_WebAPI mServer = new Masterserver_WebAPI();
         LinkedList<Server> sList = mServer.requestServerList();
-        int updates=0;
-        int skipped=0;
+        log.info("[MasterServerUpdate]Retrieved "+sList.size()+" Servers from the Steam Web Api. Staring processing...");
+        int newserver=0;
+        int updated=0;
 
         for(Server s : sList){
             String[] pat = s.getUri().split(":");
@@ -47,21 +48,20 @@ public class MasterServerUpdate {
                 sim.setPort(Integer.parseInt(pat[1]));
                 sim.setActive(true);
                 indexRepo.save(sim);
-                updates++;
+                newserver++;
             }else{
-                skipped++;
+                updated++;
                 sim = queryList.get(0);
                 if(!sim.getActive()){
                     sim.setActive(true);
                     indexRepo.save(sim);
-                    updates++;
                 }
 
             }
             System.out.print("\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r");
-            System.out.print("Server: "+updates +" Updated: "+skipped);
+            System.out.print("NewServer: "+newserver +" Updated: "+updated);
         }
         System.out.println();
-        log.info("Update Finished! Updated "+updates+" records. Leaving "+skipped+" existing records untouched.");
+        log.info("[MasterServerUpdate]Update Finished! Found "+newserver+" new Server! Updated "+updated+" existing ones.");
     }
 }

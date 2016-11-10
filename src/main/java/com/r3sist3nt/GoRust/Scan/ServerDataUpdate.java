@@ -55,7 +55,7 @@ public class ServerDataUpdate {
         scanned=0;
 
         log.info("[ServerDataUpdate] Starting Server Query... [THREAD_POOL_SIZE]="+THREAD_POOL_SIZE);
-        log.info("[ServerDataUpdate] Found "+serverList.size()+" active servers.");
+        log.info("[ServerDataUpdate] Found "+serverList.size()+" last known active Servers in Database.");
         QueryTask[] pool = new QueryTask[THREAD_POOL_SIZE];
 
         /**
