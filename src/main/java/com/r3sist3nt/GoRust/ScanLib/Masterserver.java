@@ -21,8 +21,9 @@ public class Masterserver {
 		try {
 			DatagramSocket clientSocket = new DatagramSocket();
 			//DNS Entry from hl2master.steampowered.com
-			InetAddress IPAddress = InetAddress.getByName("208.64.200.39");
-			
+			InetAddress IPAddress = InetAddress.getByName("hl2master.steampowered.com");
+			System.out.println("Resolved MasterServer IP: "+IPAddress.getHostAddress());
+
 			clientSocket.setSoTimeout(3000);
 			
 
@@ -82,7 +83,7 @@ public class Masterserver {
 		DatagramPacket receivePacket = new DatagramPacket(response, response.length);
 
 		DatagramPacket sendPacket = new DatagramPacket(MASTER_REQUEST(seedIP, filter),
-				MASTER_REQUEST(seedIP, filter).length, IPAddress, 27015);
+				MASTER_REQUEST(seedIP, filter).length, IPAddress, 27011);
 
 		// Send Package
 		clientSocket.send(sendPacket);
