@@ -1,6 +1,7 @@
 package com.r3sist3nt.GoRust.Scan;
 
 import com.r3sist3nt.GoRust.ScanLib.Masterserver;
+import com.r3sist3nt.GoRust.ScanLib.model.Masterserver_WebAPI;
 import com.r3sist3nt.GoRust.ScanLib.model.Server;
 import com.r3sist3nt.GoRust.database.ServerDataRepository;
 import com.r3sist3nt.GoRust.database.ServerIndexModel;
@@ -31,7 +32,7 @@ public class MasterServerUpdate {
 
     public void update(){
         log.info("Updating Database from Masterserver...");
-        Masterserver mServer = new Masterserver();
+        Masterserver_WebAPI mServer = new Masterserver_WebAPI();
         LinkedList<Server> sList = mServer.requestServerList();
         int updates=0;
         int skipped=0;

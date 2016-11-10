@@ -4,15 +4,15 @@ package com.r3sist3nt.GoRust.ScanLib.JSONTemplates;
  * Created by maczuga on 10.11.2016.
  */
 public class Response {
-    public Servers getResponse() {
-        return response;
+    public ServerTemplateJSON[] getResponse() {
+        return servers;
     }
 
-    public void setResponse(Servers response) {
-        this.response = response;
+    public void ServerTemplateJSON(ServerTemplateJSON[] servers) {
+        this.servers = servers;
     }
 
-    Servers response;
+    ServerTemplateJSON[] servers;
 
 
 }
