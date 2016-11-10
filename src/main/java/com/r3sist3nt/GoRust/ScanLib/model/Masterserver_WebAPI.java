@@ -29,6 +29,7 @@ public class Masterserver_WebAPI {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json;charset=utf-32");
 
+
         HttpEntity entity = new HttpEntity(headers);
 
         HttpEntity<ServerTemplateJSON> response = restTemplate.exchange(
