@@ -74,6 +74,7 @@ public class Masterserver {
 		//System.out.println(ServerPacket.bytesToHex(b));
 		return b;
 	}
+
 	//private String filter = "\\appid\\252490\\empty\\1";
 	private String filter = "\\appid\\252490";
 	//private String filter = "";
