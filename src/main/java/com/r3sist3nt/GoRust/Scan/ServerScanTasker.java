@@ -7,6 +7,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
+import java.util.Scanner;
+
 
 @Component
 public class ServerScanTasker{
@@ -40,6 +42,23 @@ public class ServerScanTasker{
 		dataUpdate.update();
 	}
 
+	@Scheduled(fixedDelay = 10)
+	public void consoleTest(){
+		Scanner in = new Scanner(System.in);
+		String b = in.nextLine();
+		if(b.startsWith("look")){
+			String[] split = b.split(" ");
+			if(split.length==2){
+				String ip = split[1].split(":")[0];
+				String port = split[1].split(":")[1];
+				System.out.println("Looking for: "+ip+":"+port);
+
+			}else{
+				System.out.println("Usage: look <ip:port>");
+			}
+		}
+	}
+
 	/**
 	 * Setting ThreadPool size to 2
 	 * -> needed to deal with both scan and query tasks at the same time.
@@ -47,7 +66,7 @@ public class ServerScanTasker{
 	@Bean()
 	public ThreadPoolTaskScheduler taskScheduler(){
 		ThreadPoolTaskScheduler taskScheduler = new ThreadPoolTaskScheduler();
-		taskScheduler.setPoolSize(2);
+		taskScheduler.setPoolSize(3);
 		return  taskScheduler;
 	}
 
