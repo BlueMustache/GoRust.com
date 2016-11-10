@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 import com.r3sist3nt.GoRust.ScanLib.model.Server;
 
-
+@Deprecated
 public class Masterserver {
 	public Masterserver() {
 		
