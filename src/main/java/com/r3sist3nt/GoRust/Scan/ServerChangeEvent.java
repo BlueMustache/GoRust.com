@@ -30,6 +30,7 @@ public class ServerChangeEvent {
         if(!oldModel.getServer_name().equals(newModel.getServer_name())){
             namechanged=true;
             sem.setNameto(newModel.getServer_name());
+
         }
         if(oldModel.getServer_seed()!=newModel.getServer_seed()){
             seedchanged=true;

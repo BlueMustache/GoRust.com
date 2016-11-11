@@ -22,6 +22,13 @@ public class ServerPacket {
 	 *
 	 * @return A2S_INFO Package as byte Array.
 	 */
+	//byte[] bytes = ByteBuffer.allocate(4).putInt(1695609641).array();
+	public byte [] PLAYER_INFO(byte[] c){
+		byte[] data = new byte[5];
+		data[0]= (byte) 0x55;
+		System.arraycopy(c,0,data,1,4);
+		return data;
+	}
 	public byte[] A2S_INFO(){
 		byte[] data = new byte[25];
 		data[0] = (byte) 0xFF;
