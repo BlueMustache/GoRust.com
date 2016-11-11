@@ -24,7 +24,7 @@ public class ServerChangeEvent {
         boolean namechanged=false,seedchanged=false,mapsizechanged=false,maxplayerchanged=false,buildchanged=false;
         ServerEventModel sem = new ServerEventModel();
         sem.setServerid(newModel.getServerid());
-        if(newModel.getServer_name()==null || newModel.getServer_build()==null || newModel.getServer_mapsize()==0 || newModel.getServer_seed()==0{
+        if(newModel.getServer_name()==null || newModel.getServer_build()==null || newModel.getServer_mapsize()==0 || newModel.getServer_seed()==0){
             return;
         }
         if(!oldModel.getServer_name().equals(newModel.getServer_name())){
