@@ -63,6 +63,9 @@ public class QueryTask extends Thread {
 
                     if (dataList.size() > 0) {
                         ServerDataModel db = dataList.get(0);
+                        /**
+                         * Compare new result with known result.
+                         */
                         if (db.getData_hash() == sdm.getData_hash()) {
                             db.setData_lastscan(new Timestamp(System.currentTimeMillis()));
                             dataRepo.save(db);

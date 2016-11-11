@@ -23,6 +23,10 @@ public class ServerChangeEvent {
     public void newEvent(ServerDataModel oldModel, ServerDataModel newModel){
         boolean namechanged=false,seedchanged=false,mapsizechanged=false,maxplayerchanged=false,buildchanged=false;
         ServerEventModel sem = new ServerEventModel();
+        sem.setServerid(newModel.getServerid());
+        if(newModel.getServer_name()==null || newModel.getServer_build()==null){
+            return;
+        }
         if(!oldModel.getServer_name().equals(newModel.getServer_name())){
             namechanged=true;
             sem.setNameto(newModel.getServer_name());
