@@ -21,6 +21,12 @@ import java.util.List;
 
 @Component
 public class ServerDataUpdate {
+    /**
+     * This class querys all known active server in the database and updates their records.
+     * Changes will be detected and added as event
+     * -> Using a Pool of THREAD_POOL_SIZE Threads of QueryTask.class
+     * -> Threads are getting their next server from this class with the method getNextQueuedServer()
+     */
 
     public static final int  THREAD_POOL_SIZE=64;
 
